@@ -1,0 +1,8 @@
+@if (authenticatedUser) {
+  <div style="text-align: center">
+    <p>{{ welcomeMessage }}</p>
+    <img [ngSrc]="welcomeLogo" width="auto" height="auto" alt="Logo" />
+  </div>
+} @else {
+  <unauthorized></unauthorized>
+}

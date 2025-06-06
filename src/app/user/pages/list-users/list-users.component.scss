@@ -1,0 +1,16 @@
+.mat-column-profile,
+.mat-column-givenName,
+.mat-column-surname,
+.mat-column-login,
+.mat-column-password,
+.mat-column-actions {
+  text-align: center;
+  padding: 3px;
+}
+.mat-column-profile,
+.mat-column-givenName,
+.mat-column-surname,
+.mat-column-login,
+.mat-column-password {
+  border-right: 2px solid var(--app-red);
+}

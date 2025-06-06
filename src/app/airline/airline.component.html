@@ -1,0 +1,89 @@
+@if (authenticatedUser) {
+  @if (authenticatedUser.profile === 1) {
+    <form id="form" [formGroup]="airlineForm" (ngSubmit)="submitAirlineForm()">
+      <mat-label class="formTitle">{{ airlineFormTitle }}</mat-label>
+
+      <mat-form-field>
+        <mat-label>{{ icaoInputLabel }}</mat-label>
+        <input
+          matInput
+          [formControlName]="this.icaoFieldIdentifier"
+          minlength="3"
+          maxlength="3"
+        />
+        <mat-error>{{ displayICAOErrorMessage() }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ nameInputLabel }}</mat-label>
+        <input matInput [formControlName]="this.nameFieldIdentifier" />
+        <mat-error>{{ displayNameErrorMessage() }}</mat-error>
+      </mat-form-field>
+
+      <div id="logoFileChooserContainer">
+        <button
+          type="button"
+          class="blueButton"
+          mat-fab
+          extended
+          (click)="document.getElementById(this.logoFieldIdentifier)?.click()"
+        >
+          <i class="material-icons">image</i>
+          {{ logoInputLabel }}
+        </button>
+        <input
+          accept=".png, .jpg, .jpeg, .ico"
+          type="file"
+          (change)="checkFile($event)"
+          [id]="this.logoFieldIdentifier"
+        />
+        <span class="logoFileName">{{ logoFileName }}</span>
+      </div>
+
+      <div>
+        <span class="flag fi fi-{{ this.countrySelectedFlag }}"></span>
+        <mat-form-field class="countryFormField">
+          <mat-label>{{ nationalityInputLabel }}</mat-label>
+          <input
+            matInput
+            [formControlName]="this.nationalityFieldIdentifier"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete
+            #auto="matAutocomplete"
+            [displayWith]="displayCountry"
+            (optionSelected)="addNationalityListener($event.option.value)"
+          >
+            @for (country of filteredCountries | async; track country) {
+              <mat-option [value]="country"
+                ><span class="flag fi fi-{{ country.flagCode }}"></span
+                >{{ country.name }}</mat-option
+              >
+            }
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+
+      <div class="formButtons">
+        <button
+          type="submit"
+          class="blueButton"
+          mat-fab
+          extended
+          [disabled]="this.airlineForm.invalid"
+        >
+          <i class="material-icons">edit</i>
+          {{ submitButtonLabel }}
+        </button>
+        <button type="reset" class="resetFormButton" mat-fab extended>
+          <i class="material-icons">{{ resetButtonIcon }}</i>
+          {{ resetButtonLabel }}
+        </button>
+      </div>
+    </form>
+  } @else {
+    <forbidden></forbidden>
+  }
+} @else {
+  <unauthorized></unauthorized>
+}

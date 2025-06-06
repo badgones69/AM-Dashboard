@@ -1,0 +1,21 @@
+#logoFileChooserContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#logoFileChooser {
+  display: none;
+}
+
+.logoFileName {
+  margin-left: 10px;
+  width: 200px;
+  font-size: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.logoFileName:hover {
+  overflow: visible;
+}

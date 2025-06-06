@@ -1,0 +1,31 @@
+.illogical-error-container,
+.access-error-container {
+  display: flex;
+  align-items: center;
+  column-gap: 75px;
+  font-size: 40px;
+}
+
+.illogical-error-icon,
+.illogical-error-message {
+  color: var(--app-blue);
+}
+
+.access-error-icon,
+.access-error-message {
+  color: var(--app-red);
+}
+
+.illogical-error-message,
+.access-error-message {
+  font-weight: bold;
+}
+
+#unauthorized-icon,
+#forbidden-icon {
+  font-size: 375px;
+}
+
+#warning-icon {
+  font-size: 275px;
+}

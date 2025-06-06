@@ -1,0 +1,27 @@
+.mat-mdc-table {
+  margin-bottom: 10px;
+}
+.mat-mdc-cell {
+  border-color: var(--app-red);
+}
+
+td {
+  padding: 3px;
+}
+.mat-column-toolLeftName,
+.mat-column-toolRightName {
+  text-align: right;
+  padding-left: 10px;
+}
+.mat-column-toolLeftVersion,
+.mat-column-toolRightVersion {
+  text-align: left;
+  padding-right: 10px;
+}
+.mat-column-toolLeftVersion {
+  border-right: 2px solid var(--app-red);
+}
+
+span {
+  font-weight: bold;
+}

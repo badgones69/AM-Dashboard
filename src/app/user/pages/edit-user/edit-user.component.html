@@ -1,0 +1,19 @@
+@if (authenticatedUser) {
+  @if (authenticatedUser.profile === 1) {
+    @if (initUserToEdit) {
+      @if (initUserToEdit.id !== authenticatedUser.id) {
+        <user-form
+          (submitted)="editUser($event)"
+          [formMode]="formMode"
+          [user]="initUserToEdit"
+        ></user-form>
+      } @else {
+        <authenticated-user-uneditable></authenticated-user-uneditable>
+      }
+    }
+  } @else {
+    <forbidden></forbidden>
+  }
+} @else {
+  <unauthorized></unauthorized>
+}
