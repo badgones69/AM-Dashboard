@@ -1,0 +1,84 @@
+<!-- HEADER TOOLBAR -->
+<mat-toolbar>
+  <button mat-button (click)="menuToggle()">
+    @if (menuOpened) {
+      <i class="material-icons">keyboard_arrow_left</i>
+    } @else {
+      <i class="material-icons">menu</i>
+    }
+  </button>
+
+  @if (authenticatedUser) {
+    <div style="display: flex; align-items: center">
+      <i class="material-icons" style="font-size: 26px; margin-right: 10px"
+        >account_circle</i
+      >
+      <span
+        >{{ authenticatedUser.givenName }} {{ authenticatedUser.surname }}</span
+      >
+      <button mat-button (click)="logout()">
+        <i class="material-icons" style="margin-left: 5px">logout</i>
+      </button>
+    </div>
+  }
+</mat-toolbar>
+
+<!-- MENU -->
+<mat-sidenav-container>
+  <mat-sidenav mode="side" [opened]="menuOpened">
+    <!-- AIRLINE SUBMENU -->
+    @if (authenticatedUser && authenticatedUser.profile === 1) {
+      <button mat-button (click)="airlineMenuToggle()" class="menu-button">
+        @if (airlineMenuExpanded) {
+          <i class="material-icons">expand_more</i>
+        } @else {
+          <i class="material-icons">chevron_right</i>
+        }
+        <i class="material-icons">domain</i>
+        <span>Compagnie</span>
+      </button>
+      @if (airlineMenuExpanded) {
+        <button
+          mat-icon-button
+          class="submenu-button"
+          routerLink="airline/edit"
+        >
+          <i class="material-icons">edit</i>
+          <span>Modifier</span>
+        </button>
+      }
+    }
+
+    <!-- USER SUBMENU -->
+    @if (authenticatedUser && authenticatedUser.profile === 1) {
+      <button mat-button (click)="hubMenuToggle()" class="menu-button">
+        @if (hubMenuExpanded) {
+          <i class="material-icons">expand_more</i>
+        } @else {
+          <i class="material-icons">chevron_right</i>
+        }
+        <i class="material-icons">person</i>
+        <span>Utilisateur</span>
+      </button>
+      @if (hubMenuExpanded) {
+        <button mat-icon-button class="submenu-button" routerLink="users/add">
+          <i class="material-icons">add</i>
+          <span>Ajouter</span>
+        </button>
+        <button mat-icon-button class="submenu-button" routerLink="users/list">
+          <i class="material-icons">list</i>
+          <span>Liste</span>
+        </button>
+      }
+    }
+
+    <!-- HELP SUBMENU -->
+    <button mat-button (click)="openAboutDialog()" class="menu-button">
+      <i class="material-icons">info</i>
+      <span>À propos</span>
+    </button>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

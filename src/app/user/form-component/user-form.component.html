@@ -1,0 +1,129 @@
+<form [formGroup]="userForm" (ngSubmit)="submitUserForm()">
+  <mat-label class="formTitle">{{ userFormTitle }}</mat-label>
+
+  <mat-form-field floatLabel="always">
+    <mat-label>{{ givenNameInputLabel }}</mat-label>
+    <input matInput [formControlName]="givenNameFieldIdentifier" />
+    <mat-error>{{ displayGivenNameErrorMessage() }}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field floatLabel="always">
+    <mat-label>{{ surnameInputLabel }}</mat-label>
+    <input matInput [formControlName]="surnameFieldIdentifier" />
+    <mat-error>{{ displaySurnameErrorMessage() }}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field floatLabel="always">
+    <mat-label>{{ loginInputLabel }}</mat-label>
+    <input matInput [formControlName]="loginFieldIdentifier" />
+    <mat-error>{{ displayLoginErrorMessage() }}</mat-error>
+  </mat-form-field>
+
+  @if (!isEditMode) {
+    <mat-form-field floatLabel="always">
+      <mat-label>{{ passwordInputLabel }}</mat-label>
+      <input
+        matInput
+        [formControlName]="passwordFieldIdentifier"
+        [type]="showPassword ? 'text' : 'password'"
+      />
+      <button
+        type="button"
+        class="inputButton"
+        (click)="showPasswordToggle()"
+        mat-icon-button
+        matSuffix
+      >
+        <i
+          class="material-icons"
+          [style]="
+            isPasswordFieldInvalid()
+              ? 'color: var(--app-red)'
+              : 'color: var(--app-blue)'
+          "
+        >
+          {{ showPassword ? "visibility_off" : "visibility" }}
+        </i>
+      </button>
+      <mat-error>{{ displayPasswordErrorMessage() }}</mat-error>
+    </mat-form-field>
+  }
+
+  @if (!isEditMode && userForm.get(passwordFieldIdentifier)?.valid) {
+    <mat-form-field floatLabel="always">
+      <mat-label>{{ repeatedPasswordInputLabel }}</mat-label>
+      <input
+        matInput
+        [formControlName]="repeatedPasswordFieldIdentifier"
+        [type]="showRepeatedPassword ? 'text' : 'password'"
+        [style]="
+          isRepeatedPasswordFieldInvalid()
+            ? 'color: var(--app-red)'
+            : 'color: var(--app-blue)'
+        "
+      />
+      <button
+        type="button"
+        class="inputButton"
+        (click)="showRepeatedPasswordToggle()"
+        mat-icon-button
+        matSuffix
+      >
+        <i
+          class="material-icons"
+          [style]="
+            isRepeatedPasswordFieldInvalid()
+              ? 'color: var(--app-red)'
+              : 'color: var(--app-blue)'
+          "
+        >
+          {{ showRepeatedPassword ? "visibility_off" : "visibility" }}
+        </i>
+      </button>
+      <mat-error>{{
+        displayRepeatedPasswordErrorMessage("required")
+      }}</mat-error>
+      @if (
+        isRepeatedPasswordFieldInvalid() &&
+        userForm.hasError("notIdenticalPasswords")
+      ) {
+        <mat-hint class="errorHint">{{
+          displayRepeatedPasswordErrorMessage("notIdenticalPasswords")
+        }}</mat-hint>
+      }
+    </mat-form-field>
+  }
+
+  <mat-form-field floatLabel="always">
+    <mat-label>{{ profileInputLabel }}</mat-label>
+    <mat-select [formControlName]="profileFieldIdentifier">
+      @for (profile of profiles; track profile) {
+        <mat-option [value]="profile.id">{{ profile.name }}</mat-option>
+      }
+    </mat-select>
+    <mat-error>{{ displayProfileErrorMessage() }}</mat-error>
+  </mat-form-field>
+
+  <div class="formButtons">
+    <button
+      type="submit"
+      class="blueButton"
+      mat-fab
+      extended
+      [disabled]="userForm.invalid"
+    >
+      <i class="material-icons">{{ submitButtonIcon }}</i>
+      {{ submitButtonLabel }}
+    </button>
+    <button
+      [type]="resetButtonType"
+      class="resetFormButton"
+      mat-fab
+      extended
+      (click)="ngOnInit()"
+    >
+      <i class="material-icons">{{ resetButtonIcon }}</i>
+      {{ resetButtonLabel }}
+    </button>
+  </div>
+</form>

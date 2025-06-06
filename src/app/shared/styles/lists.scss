@@ -1,0 +1,32 @@
+.listTitle {
+  font-family: var(--app-font), sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+a {
+  font-weight: bold;
+  color: var(--app-blue);
+}
+
+td .mat-mdc-icon-button.mat-mdc-button-base {
+  padding: 0;
+  color: var(--app-blue);
+}
+
+.mdc-text-field--outlined:not(.mdc-text-field--disabled)
+  .mdc-notched-outline__leading,
+.mdc-text-field--outlined:not(.mdc-text-field--disabled)
+  .mdc-notched-outline__notch,
+.mdc-text-field--outlined:not(.mdc-text-field--disabled)
+  .mdc-notched-outline__trailing {
+  border-color: var(--app-blue) !important;
+}
+
+.mat-mdc-paginator-range-actions
+  .mat-mdc-icon-button
+  .mat-mdc-button-touch-target {
+  display: none;
+}
